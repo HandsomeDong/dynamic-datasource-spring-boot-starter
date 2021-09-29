@@ -7,7 +7,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
     username: root
-    password: xxxxx
+    password: 123.
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml

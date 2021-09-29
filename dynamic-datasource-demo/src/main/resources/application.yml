@@ -1,0 +1,16 @@
+handsomedong:
+  test:
+    hello: This is just a test
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
+    username: root
+    password: xxxxx
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.handsomedong.manager.entity
+
+debug: true

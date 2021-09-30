@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 
 /**
  * Created by HandsomeDong on 2021/9/30 0:35
+ * 核心拦截器
  */
 @Slf4j
 public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor {

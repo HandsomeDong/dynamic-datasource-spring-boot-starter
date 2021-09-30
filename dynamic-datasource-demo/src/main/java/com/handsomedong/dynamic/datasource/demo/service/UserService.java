@@ -18,4 +18,8 @@ public class UserService {
     public List<User> getUserList() {
         return userMapper.getUserList();
     }
+
+    public List<User> getUserListFromHandsomeDong() {
+        return userMapper.getUserListFromHandsomeDong();
+    }
 }

@@ -2,23 +2,54 @@ package com.handsomedong.dynamic.datasource.spring.boot.autoconfigure;
 
 import com.handsomedong.dynamic.datasource.aop.DynamicDataSourceAnnotationBeanPostProcessor;
 import com.handsomedong.dynamic.datasource.aop.DynamicDataSourceAnnotationInterceptor;
+import com.handsomedong.dynamic.datasource.helper.DynamicDataSourceContextHolder;
+import com.handsomedong.dynamic.datasource.helper.DynamicRoutingDataSource;
+import com.handsomedong.dynamic.datasource.provider.DefaultDynamicDataSourceProvider;
+import com.handsomedong.dynamic.datasource.provider.DynamicDataSourceProvider;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * Created by HandsomeDong on 2021/9/29 0:50
  * 自动配置类
  */
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(DynamicDataSourceProperties.class)
+@AutoConfigureBefore(value = DataSourceAutoConfiguration.class, name = "com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure")
+@Import(DruidDynamicDataSourceConfiguration.class)
 public class DynamicDataSourceAutoConfiguration {
     private final DynamicDataSourceProperties properties;
 
     public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties properties) {
         this.properties = properties;
-        System.out.println("DynamicDataSourceProperties: " + properties);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DynamicDataSourceProvider dynamicDataSourceProvider() {
+        return new DefaultDynamicDataSourceProvider(properties);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public DataSource dataSource(DynamicDataSourceProvider provider) throws SQLException {
+        DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
+        Map<String, DataSource> dataSourceMap = provider.loadDataSources();
+        dataSourceMap.forEach(dynamicRoutingDataSource::addDataSource);
+        dynamicRoutingDataSource.setDefaultTargetDataSource(dataSourceMap.get(properties.getDefaultDatasourceKey()));
+        DynamicDataSourceContextHolder.DEFAULT_KEY = properties.getDefaultDatasourceKey();
+        return dynamicRoutingDataSource;
     }
 
     @Bean

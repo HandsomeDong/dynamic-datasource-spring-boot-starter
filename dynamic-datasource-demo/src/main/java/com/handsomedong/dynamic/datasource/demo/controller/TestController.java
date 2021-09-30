@@ -22,4 +22,9 @@ public class TestController {
     public List<User> getUserList() {
         return userService.getUserList();
     }
+
+    @GetMapping("/users_handsomedong")
+    public List<User> getUserListFromHandsomeDong() {
+        return userService.getUserListFromHandsomeDong();
+    }
 }

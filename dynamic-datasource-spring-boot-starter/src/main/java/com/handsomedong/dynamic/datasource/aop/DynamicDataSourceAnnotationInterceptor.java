@@ -1,6 +1,7 @@
 package com.handsomedong.dynamic.datasource.aop;
 
 import com.handsomedong.dynamic.datasource.annotation.DataSource;
+import com.handsomedong.dynamic.datasource.helper.DynamicDataSourceContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -26,6 +27,11 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
             log.error("Cannot get the annotation DataSource value, please check your annotation!");
         }
         log.info("Get the annotation DataSource value: {}", value);
-        return methodInvocation.proceed();
+        try {
+            DynamicDataSourceContextHolder.setDSKey(value);
+            return methodInvocation.proceed();
+        } finally {
+            DynamicDataSourceContextHolder.clearDSKey();
+        }
     }
 }

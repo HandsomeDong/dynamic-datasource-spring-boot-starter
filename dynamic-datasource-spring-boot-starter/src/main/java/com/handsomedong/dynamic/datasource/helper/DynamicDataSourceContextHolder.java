@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class DynamicDataSourceContextHolder {
 
-    public static final String DEFAULT_KEY = "default";
+    public static String DEFAULT_KEY = "default";
 
     private static final ThreadLocal<String> LOOKUP_KEY_HOLDER = new ThreadLocal<>();
 
@@ -22,7 +22,7 @@ public class DynamicDataSourceContextHolder {
         if (key == null) {
             return;
         }
-        log.info("switch db: {}", key);
+        log.info("Switch db: {}", key);
         LOOKUP_KEY_HOLDER.set(key);
     }
 

@@ -2,7 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.handsomedong.dynamic.datasource.demo.mapper.UserMapper">
     <select id="getUserList" resultType="com.handsomedong.dynamic.datasource.demo.entity.User">
-        SELECT id, user_name FROM user
+        SELECT id, user_name as userName FROM user
+    </select>
+
+    <select id="getUserListFromHandsomeDong" resultType="com.handsomedong.dynamic.datasource.demo.entity.User">
+        SELECT id, user_name as userName FROM user
     </select>
 
 </mapper>

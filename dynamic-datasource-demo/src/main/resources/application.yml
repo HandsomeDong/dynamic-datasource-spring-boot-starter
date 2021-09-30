@@ -1,31 +1,16 @@
-handsomedong:
-  test:
-    hello: This is just a test
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
-    username: root
-    password: 123yhd.
-
   dynamic:
     datasource:
       dynamicDatasource:
         druid:
           default:
             driverClassName: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
+            jdbc-url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
             username: root
             password: 123
-          handsomedong:
+          HandsomeDong:
             driverClassName: com.mysql.cj.jdbc.Driver
-            url: jdbc:mysql://localhost:3306/test?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
+            jdbc-url: jdbc:mysql://localhost:3306/handsomedong?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT
             username: root
             password: 123
-
-mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage: com.handsomedong.manager.entity
-
 debug: true

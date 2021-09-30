@@ -12,6 +12,8 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
-    @DataSource("test")
     List<User> getUserList();
+
+    @DataSource("HandsomeDong")
+    List<User> getUserListFromHandsomeDong();
 }

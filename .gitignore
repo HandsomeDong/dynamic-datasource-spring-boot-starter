@@ -6,6 +6,7 @@ target/
 *.iws
 *.iml
 *.ipr
+.mvn
 
 ### STS ###
 .apt_generated

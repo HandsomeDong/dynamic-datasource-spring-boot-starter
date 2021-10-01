@@ -9,4 +9,8 @@
         SELECT id, user_name as userName FROM user
     </select>
 
+    <select id="getShardingUser" resultType="com.handsomedong.dynamic.datasource.demo.entity.User">
+        SELECT id, user_name as userName FROM user WHERE id = #{id}
+    </select>
+
 </mapper>

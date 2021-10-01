@@ -16,4 +16,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     @DataSource("HandsomeDong")
     List<User> getUserListFromHandsomeDong();
+
+    @DataSource("test1")
+    List<User> getShardingUser(Integer id);
 }

@@ -7,6 +7,8 @@ import com.handsomedong.dynamic.datasource.helper.DynamicRoutingDataSource;
 import com.handsomedong.dynamic.datasource.provider.DefaultDynamicDataSourceProvider;
 import com.handsomedong.dynamic.datasource.provider.DynamicDataSourceProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -31,6 +33,10 @@ import java.util.Map;
 public class DynamicDataSourceAutoConfiguration {
     private final DynamicDataSourceProperties properties;
 
+    @Autowired
+    @Qualifier("shardingDataSourceMap")
+    private Map<String, DataSource> shardingDataSourceMap;
+
     public DynamicDataSourceAutoConfiguration(DynamicDataSourceProperties properties) {
         this.properties = properties;
     }
@@ -45,8 +51,16 @@ public class DynamicDataSourceAutoConfiguration {
     @ConditionalOnMissingBean
     public DataSource dataSource(DynamicDataSourceProvider provider) throws SQLException {
         DynamicRoutingDataSource dynamicRoutingDataSource = new DynamicRoutingDataSource();
+
+        // 设置多数据源
         Map<String, DataSource> dataSourceMap = provider.loadDataSources();
+        // 设置sharding-jdbc数据源
+        dataSourceMap.putAll(shardingDataSourceMap);
+
+        // 加载数据源
         dataSourceMap.forEach(dynamicRoutingDataSource::addDataSource);
+
+        //设置默认数据源
         dynamicRoutingDataSource.setDefaultTargetDataSource(dataSourceMap.get(properties.getDefaultDatasourceKey()));
         DynamicDataSourceContextHolder.DEFAULT_KEY = properties.getDefaultDatasourceKey();
         return dynamicRoutingDataSource;

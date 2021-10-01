@@ -22,4 +22,8 @@ public class UserService {
     public List<User> getUserListFromHandsomeDong() {
         return userMapper.getUserListFromHandsomeDong();
     }
+
+    public List<User> getShardingUser(Integer id) {
+        return userMapper.getShardingUser(id);
+    }
 }

@@ -5,6 +5,7 @@ import com.handsomedong.dynamic.datasource.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,5 +27,11 @@ public class TestController {
     @GetMapping("/users_handsomedong")
     public List<User> getUserListFromHandsomeDong() {
         return userService.getUserListFromHandsomeDong();
+    }
+
+
+    @GetMapping("/sharding_user")
+    public List<User> getShardingUser(@RequestParam Integer id) {
+        return userService.getShardingUser(id);
     }
 }

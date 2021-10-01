@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.handsomedong.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+com.handsomedong.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration,com.handsomedong.dynamic.datasource.spring.boot.autoconfigure.DynamicShardingDataSourceConfiguration

@@ -62,11 +62,14 @@ spring.dynamic.datasource.props.test1.props.sql.show=true
 ```java
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    // 使用默认数据源
     List<User> getUserList();
 
+    // 使用HandsomeDong数据源
     @DataSource("HandsomeDong")
     List<User> getUserListFromHandsomeDong();
 
+    // 使用test1数据源，这是一个sharding数据源，有分片规则。详情看配置文件
     @DataSource("test1")
     List<User> getShardingUser(Integer id);
 }

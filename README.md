@@ -20,7 +20,10 @@ dynamic-datasource-spring-boot-starter 是一个基于springboot的快速集成�
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
 ```
-4. 启动类排除加载类，@SpringBootApplication(excludeName = "org.apache.shardingsphere.shardingjdbc.spring.boot.SpringBootConfiguration")
+4. SpringBoot启动类排除加载类
+```java
+@SpringBootApplication(excludeName = "org.apache.shardingsphere.shardingjdbc.spring.boot.SpringBootConfiguration")
+```
 5. 在配置文件添加数据源相关配置
 ```properties
 debug=true

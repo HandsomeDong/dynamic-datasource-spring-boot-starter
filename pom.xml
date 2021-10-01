@@ -11,5 +11,9 @@
 
     <description>A springboot starter project for dynamic datasource.</description>
 
+    <modules>
+        <module>dynamic-datasource-demo</module>
+        <module>dynamic-datasource-spring-boot-starter</module>
+    </modules>
 
 </project>
